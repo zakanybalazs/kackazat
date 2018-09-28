@@ -3,20 +3,26 @@
     <div>
       <logo/>
       <h1 class="title">
-        kockazat
+        Kockázat kalkulátor
       </h1>
       <h2 class="subtitle">
-        Kockázat kalkulátor
+        Kockázat kalkulátor egyetemi dolgozathoz, vizsgához, ellenérzéshez.
       </h2>
       <div class="links">
-        <a
+        <nuxt-link to="/kalkulator">
+          <a
           href="https://nuxtjs.org/"
           target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
+          class="button--green">Elkezdés</a>
+        </nuxt-link>
+          <a
+          href="https://github.com/zakanybalazs/kockazat"
           target="_blank"
           class="button--grey">GitHub</a>
+        <p style="margin-top:40px; color:gray">
+          Készítette:
+          <a href="https://www.facebook.com/balazs.zakany">Zákány Balázs</a>
+        </p>
       </div>
     </div>
   </section>
@@ -33,7 +39,9 @@ export default {
 </script>
 
 <style>
-
+.button--green {
+  cursor: pointer;
+}
 .container {
   min-height: 100vh;
   display: flex;
