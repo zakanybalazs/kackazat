@@ -69,6 +69,8 @@
                 <th class="w1" style="text-align:center">Név</th>
                 <th class="w1" style="text-align:center" v-for="(allapot, index) in preCalc[0].allapotok" :key="index">{{index + 1}}. állapot</th>
                 <th class="w1" style="text-align:center" >Várható hozam</th>
+                <th class="w1" style="text-align:center" >Variancia</th>
+                <th class="w1" style="text-align:center" >Szórás</th>
               </tr>
             </template>
             <template slot="tbody">
@@ -89,6 +91,12 @@
                 </td>
                 <td class="w1">
                   <input type="text" :value="VarhatoHozamok[i]">
+                </td>
+                <td class="w1">
+                  <input type="text" :value="Variancia[i]">
+                </td>
+                <td class="w1">
+                  <input type="text" :value="Szoras[i]">
                 </td>
               </tr>
             </template>
@@ -133,8 +141,13 @@
       Variancia: () ->
         this.preCalc.map (tr, index) =>
           this._vairancia(index)
+      Szoras: () ->
+        this.preCalc.map (tr, index) =>
+          Math.sqrt this.Variancia[index]
 
     methods:
+      _kovariancia: (index) ->
+
       _varhatohozam: (index) ->
         allapotok = this.preCalc[index].allapotok
         varhato = 0
@@ -143,10 +156,11 @@
         return varhato
       _vairancia: (index) ->
         allapotok = this.preCalc[index].allapotok
-        v = 0
+        varhato_ertek = this.VarhatoHozamok[index]
+        variancia = 0
         for i in [0..allapotok.length-1] by 1
-          v += this.Hozamratak[index][i] * Number this.Valoszinusegek[i]
-        return v
+          variancia += Math.pow((this.Hozamratak[index][i] - Number varhato_ertek), 2) * Number this.Valoszinusegek[i]
+        return variancia
       _hozamrata: (base, n) ->
         return ((Number n - Number base) / Number base)
       _fillForm: () ->
